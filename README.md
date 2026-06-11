@@ -33,10 +33,12 @@ npm install
 Crie um arquivo `.env` na raiz da pasta `final`:
 
 ```bash
-DATABASE_URL=postgresql://neondb_owner:npg_5zVJiTXADIg6@ep-floral-wave-actx5yyf-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-JWT_SECRET=todo_app_secret_key
+DATABASE_URL=sua_connection_string_do_neon
+JWT_SECRET=seu_jwt_secret
 PORT=3000
 ```
+> ⚠️ As credenciais do banco de dados devem ser solicitadas ao responsável pelo projeto.
+
 ### 4. Rodar o servidor
 ```bash
 npm run dev
