@@ -1,6 +1,6 @@
-# To-do App - Backend Inicial
+# To-do App - Backend Final
 
-API REST desenvolvida com Node.js, Express e PostgreSQL (Neon) para o aplicativo de lista de tarefas.
+API REST desenvolvida com Node.js, Express e PostgreSQL (Neon) para o aplicativo de lista de tarefas. Hospedada no Render.
 
 ## Tecnologias
 - Node.js
@@ -8,30 +8,41 @@ API REST desenvolvida com Node.js, Express e PostgreSQL (Neon) para o aplicativo
 - PostgreSQL (Neon)
 - JWT (autenticação)
 - Bcryptjs (criptografia de senhas)
+- Render (hospedagem)
 
-## Como rodar o projeto
+## URL da API
+```
+https://todo-backend-oiwu.onrender.com
+```
+> ⚠️ O plano gratuito do Render hiberna após inatividade. A primeira requisição pode demorar até 50 segundos.
 
-### Pré-requisitos
-- Node.js instalado
-- Conta no Neon (neon.tech)
+## Como rodar localmente
 
-### Instalação
+### 1. Clonar o repositório
+```bash
+git clone https://github.com/Projeto-Integrador3A/Back-End
+cd backend/final
+```
+
+### 2. Instalar as dependências
 ```bash
 npm install
 ```
 
-### Configurar o .env
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+### 3. Configurar o .env
+Crie um arquivo `.env` na raiz da pasta `final`:
+
 ```bash
-DATABASE_URL=sua_connection_string_do_neon
+DATABASE_URL=postgresql://neondb_owner:npg_5zVJiTXADIg6@ep-floral-wave-actx5yyf-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 JWT_SECRET=todo_app_secret_key
 PORT=3000
 ```
-
-### Rodar o servidor
+### 4. Rodar o servidor
 ```bash
 npm run dev
 ```
+
+✅ Se aparecer `Servidor rodando na porta 3000` está funcionando!
 
 ## Rotas da API
 
@@ -91,10 +102,11 @@ npm run dev
   {
     "id": 1,
     "title": "Título da tarefa",
-    "description": "Descrição da tarefa",
+    "description": "",
+    "date": "2026-06-11",
     "completed": false,
     "user_id": 1,
-    "created_at": "2026-04-09T05:12:09.759Z"
+    "created_at": "2026-06-11T05:12:09.759Z"
   }
 ]
 ```
@@ -105,7 +117,8 @@ npm run dev
 ```json
 {
   "title": "Título da tarefa",
-  "description": "Descrição da tarefa"
+  "description": "",
+  "date": "2026-06-11"
 }
 ```
 
@@ -115,7 +128,7 @@ npm run dev
 ```json
 {
   "title": "Título atualizado",
-  "description": "Descrição atualizada",
+  "description": "",
   "completed": true
 }
 ```
@@ -146,6 +159,28 @@ npm run dev
 | id | SERIAL | Chave primária |
 | title | VARCHAR(255) | Título da tarefa |
 | description | TEXT | Descrição da tarefa |
+| date | VARCHAR(10) | Data da tarefa |
 | completed | BOOLEAN | Status da tarefa |
 | user_id | INTEGER | Referência ao usuário |
 | created_at | TIMESTAMP | Data de criação |
+
+## Estrutura do projeto
+```bash
+final/
+├── src/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   └── taskController.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   └── taskRoutes.js
+│   ├── middlewares/
+│   │   └── authMiddleware.js
+│   ├── database/
+│   │   └── db.js
+│   └── app.js
+├── .env (não versionado)
+├── .gitignore
+├── package.json
+└── server.js
+```
