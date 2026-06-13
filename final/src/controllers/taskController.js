@@ -6,6 +6,8 @@ const getTasks = async (req, res) => {
       'SELECT * FROM tasks WHERE user_id = $1 ORDER BY created_at DESC',
       [req.userId]
     );
+    const user = await pool.query('SELECT name FROM users WHERE id = $1', [req.userId]);
+    console.log(`Buscando tarefas do usuário: ${user.rows[0].name}`);
     return res.json(result.rows);
   } catch (err) {
     return res.status(500).json({ error: 'Erro ao buscar tarefas' });
@@ -19,6 +21,8 @@ const createTask = async (req, res) => {
       'INSERT INTO tasks (title, description, date, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
       [title, description, date, req.userId]
     );
+    const user = await pool.query('SELECT name FROM users WHERE id = $1', [req.userId]);
+    console.log(`Nova tarefa criada: ${title} - Data: ${date} - Usuário: ${user.rows[0].name}`);
     return res.status(201).json(result.rows[0]);
   } catch (err) {
     return res.status(500).json({ error: 'Erro ao criar tarefa' });
@@ -36,6 +40,8 @@ const updateTask = async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Tarefa não encontrada' });
     }
+    const user = await pool.query('SELECT name FROM users WHERE id = $1', [req.userId]);
+    console.log(`Tarefa atualizada: ${title} - Concluída: ${completed} - Usuário: ${user.rows[0].name}`);
     return res.json(result.rows[0]);
   } catch (err) {
     return res.status(500).json({ error: 'Erro ao atualizar tarefa' });
@@ -52,6 +58,8 @@ const deleteTask = async (req, res) => {
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Tarefa não encontrada' });
     }
+    const user = await pool.query('SELECT name FROM users WHERE id = $1', [req.userId]);
+    console.log(`Tarefa deletada: ${result.rows[0].title} - Usuário: ${user.rows[0].name}`);
     return res.json({ message: 'Tarefa deletada com sucesso' });
   } catch (err) {
     return res.status(500).json({ error: 'Erro ao deletar tarefa' });

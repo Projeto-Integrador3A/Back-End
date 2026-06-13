@@ -4,8 +4,8 @@
   "description": "Repositório para subir o Back End Projeto Integrador",
   "main": "index.js",
   "scripts": {
-     "start": "node server.js",
-     "dev": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "dotenv": "^17.4.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.11.0",
     "pg": "^8.20.0"
   },
   "devDependencies": {
