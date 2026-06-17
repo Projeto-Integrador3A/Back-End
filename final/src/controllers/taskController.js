@@ -15,11 +15,11 @@ const getTasks = async (req, res) => {
 };
 
 const createTask = async (req, res) => {
-  const { title, description, date } = req.body;
+  const { title, date } = req.body;
   try {
     const result = await pool.query(
-      'INSERT INTO tasks (title, description, date, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
-      [title, description, date, req.userId]
+      'INSERT INTO tasks (title, date, user_id) VALUES ($1, $2, $3) RETURNING *',
+      [title, date, req.userId]
     );
     const user = await pool.query('SELECT name FROM users WHERE id = $1', [req.userId]);
     console.log(`Nova tarefa criada: ${title} - Data: ${date} - Usuário: ${user.rows[0].name}`);
@@ -31,11 +31,11 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   const { id } = req.params;
-  const { title, description, completed } = req.body;
+  const { title, completed } = req.body;
   try {
     const result = await pool.query(
-      'UPDATE tasks SET title = $1, description = $2, completed = $3 WHERE id = $4 AND user_id = $5 RETURNING *',
-      [title, description, completed, id, req.userId]
+      'UPDATE tasks SET title = $1, completed = $2 WHERE id = $3 AND user_id = $4 RETURNING *',
+      [title, completed, id, req.userId]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Tarefa não encontrada' });
