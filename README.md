@@ -119,7 +119,6 @@ npm run dev
 ```json
 {
   "title": "Título da tarefa",
-  "description": "",
   "date": "2026-06-11"
 }
 ```
@@ -160,7 +159,6 @@ npm run dev
 |-------|------|-----------|
 | id | SERIAL | Chave primária |
 | title | VARCHAR(255) | Título da tarefa |
-| description | TEXT | Descrição da tarefa |
 | date | VARCHAR(10) | Data da tarefa |
 | completed | BOOLEAN | Status da tarefa |
 | user_id | INTEGER | Referência ao usuário |
